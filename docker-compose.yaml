@@ -1,0 +1,44 @@
+version: '3'
+
+# 网络配置
+networks:
+  backend:
+    driver: bridge
+
+# 容器配置
+services:
+  golang: # golang 运行环境
+    image: golang:1.16
+    environment:
+      - GOPROXY=https://goproxy.cn,direct # 设置代理
+    volumes: 
+      - .:/opt/code # 代码位置
+    ports:
+      - '8000:8000' # 端口映射
+    depends_on:
+      - mariadb 
+      - redis
+    networks:
+      - backend
+    stdin_open: true # 允许外部输入
+    restart: unless-stopped
+
+  mariadb: # mysql 数据库
+    image: mariadb:10.3
+    environment:
+      - MYSQL_DATABASE=gover # 数据库名称
+      - MYSQL_ROOT_PASSWORD=123456 # 数据库密码
+    ports:
+      - '3306:3306' # 端口映射
+    networks:
+      - backend
+    restart: unless-stopped
+
+  redis: # redis 数据库
+    image: redis:5.0
+    ports:
+      - '6379:6379' # 端口映射
+    networks:
+      - backend
+    restart: unless-stopped
+
