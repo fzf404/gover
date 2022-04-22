@@ -1,0 +1,32 @@
+[common]
+host = "127.0.0.1" # 主机
+port = 8000 # 服务端口 
+
+upload_path = "./static/uploads/" # 上传文件位置
+url_prefix = "http://golang.fzf404.top" # 域名
+
+[mysql]
+host = "mariadb"
+port = 3306
+username = "root"
+password = "123456"
+database = "gover"
+config = "charset=utf8&parseTime=true"
+
+[redis]
+addr = "redis:6379"
+# password = "123456"
+# db = "0"
+
+[email]
+addr = "fzf404@163.com" 
+expires = 15 # 验证码过期时间 (15 min)
+host = "smtp.163.com" 
+name = "fzf404" 
+password = "QWERTYUIOP" 
+smtp = "smtp.163.com:25"
+
+[jwt]
+expires = 604800 # token过期时间 (7 day)
+issuer = "fzf404" # 发行人
+key = "QwErTyUiOpAsDfGhJkLzXcVbNm" # 签名密钥
